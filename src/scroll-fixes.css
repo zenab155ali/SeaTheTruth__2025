@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    display: block !important;
+    place-items: initial !important;
+    overflow-y: auto !important;
+  }
+  
+  #root {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto !important;
+  }
+  
+  .flex.h-screen.w-screen {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+  }
+  
+  main.flex-1.p-8 {
+    overflow-y: auto !important;
+  }
+  
+  .flex.flex-col.flex-1 {
+    overflow-y: auto !important;
+  }

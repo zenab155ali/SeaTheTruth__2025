@@ -1,0 +1,167 @@
+/* Modern CSS Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #646cff;
+  --primary-hover: #535bf2;
+  --text-color: #213547;
+  --background-color: #f8f9fa;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Container fixes for full-width layout */
+.container {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding-left: 4rem !important;
+    padding-right: 4rem !important;
+  }
+}
+
+/* Main content should fill width */
+main, .main-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Card elements should stretch */
+.card, .bg-white {
+  width: 100%;
+}
+
+/* Animation for reused elements */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease-in-out;
+}
+
+/* Wave animation for homepage */
+@keyframes waveAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-wave {
+  animation: waveAnimation 10s infinite linear;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Fix Tailwind container for full-width */
+@media (min-width: 640px) {
+  .sm\:container {
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:container {
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:container {
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:container {
+    max-width: 100% !important;
+  }
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1280px) {
+  /* Large desktop adjustments */
+}
+
+@media (max-width: 1024px) {
+  /* Small desktop and tablet landscape */
+}
+
+@media (max-width: 768px) {
+  /* Tablet portrait */
+}
+
+@media (max-width: 640px) {
+  /* Mobile devices */
+}

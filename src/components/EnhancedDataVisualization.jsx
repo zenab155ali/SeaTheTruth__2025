@@ -283,7 +283,7 @@ export default function EnhancedDataVisualization() {
           </div>
         )}
         
-        {/* 4. Scatter Plot */}
+        {/* 4. Scatter Plot - FIXED */}
         {activeTab === 'scatterPlot' && (
           <div>
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Microplastic Density by Geographic Location</h2>
@@ -295,7 +295,7 @@ export default function EnhancedDataVisualization() {
             <div className="h-96 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart
-                  margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                  margin={{ top: 20, right: 20, bottom: 60, left: 60 }}
                 >
                   <CartesianGrid />
                   <XAxis 
@@ -303,20 +303,28 @@ export default function EnhancedDataVisualization() {
                     dataKey="longitude" 
                     name="Longitude" 
                     domain={[-180, 180]}
-                    label={{ value: 'Longitude', position: 'bottom' }} 
+                    tickCount={7}
+                    label={{ value: 'Longitude (°)', position: 'insideBottom', offset: -10 }} 
                   />
                   <YAxis 
                     type="number" 
                     dataKey="latitude" 
                     name="Latitude" 
                     domain={[-90, 90]}
-                    label={{ value: 'Latitude', angle: -90, position: 'insideLeft' }} 
+                    tickCount={7}
+                    label={{ value: 'Latitude (°)', angle: -90, position: 'insideLeft' }} 
                   />
                   <Tooltip 
                     cursor={{ strokeDasharray: '3 3' }}
                     formatter={(value, name, props) => {
                       if (name === 'density') {
                         return [`${value.toFixed(2)} particles/m³`, 'Density'];
+                      }
+                      if (name === 'longitude') {
+                        return [`${value.toFixed(2)}°`, 'Longitude'];
+                      }
+                      if (name === 'latitude') {
+                        return [`${value.toFixed(2)}°`, 'Latitude'];
                       }
                       return [value, name];
                     }}
@@ -342,19 +350,40 @@ export default function EnhancedDataVisualization() {
               </ResponsiveContainer>
             </div>
             
-            <div className="mt-8 bg-blue-50 p-4 rounded-lg border border-blue-100">
+            {/* Geographic Coordinate Definitions */}
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Geographic Coordinate Definitions</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-medium text-gray-800 mb-2">🌍 Latitude</h4>
+                  <p className="text-sm text-gray-600">
+                    Lines that run horizontally around the Earth, measuring distance north or south from the equator. 
+                    Ranges from -90° (South Pole) to +90° (North Pole). The equator is at 0°.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-gray-800 mb-2">🌐 Longitude</h4>
+                  <p className="text-sm text-gray-600">
+                    Lines that run vertically from pole to pole, measuring distance east or west from the Prime Meridian. 
+                    Ranges from -180° to +180°. The Prime Meridian (0°) passes through Greenwich, England.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-100">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Spatial Distribution Analysis</h3>
               <ul className="list-disc pl-5 space-y-1 text-gray-700">
                 <li>Microplastic density generally appears higher in the Northern Hemisphere, particularly between 20°N and 40°N latitude</li>
                 <li>Coastal areas show consistently higher concentrations than open ocean regions</li>
-                <li>Data points from more recent years (represented by warmer colors) show higher average densities</li>
+                <li>Data points from more recent years (represented by different colors) show higher average densities</li>
                 <li>The Mediterranean and East Asian seas show the most concerning concentration levels</li>
               </ul>
             </div>
           </div>
         )}
         
-        {/* 5. Future Predictions */}
+        {/* 5. Future Predictions - ENHANCED WITH FORMULA */}
         {activeTab === 'predictions' && (
           <div>
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Predicting Microplastic Density to 2035</h2>
@@ -427,7 +456,43 @@ export default function EnhancedDataVisualization() {
               </ResponsiveContainer>
             </div>
             
-            <div className="mt-8 bg-blue-50 p-4 rounded-lg border border-blue-100">
+            {/* Prediction Formula Section */}
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">🔬 Prediction Model Formula</h3>
+              <div className="bg-white p-4 rounded-md border border-gray-300 font-mono text-sm">
+                <div className="text-center mb-3">
+                  <strong className="text-lg">Microplastic Density Prediction Model</strong>
+                </div>
+                <div className="space-y-2">
+                  <div><strong>Linear Trend Component:</strong></div>
+                  <div className="ml-4 bg-blue-50 p-2 rounded">
+                    <span className="text-blue-800">D(t) = α + β₁ × (t - t₀) + β₂ × (t - t₀)²</span>
+                  </div>
+                  
+                  <div className="mt-3"><strong>Seasonal Component:</strong></div>
+                  <div className="ml-4 bg-green-50 p-2 rounded">
+                    <span className="text-green-800">S(t) = γ₁ × sin(2πt) + γ₂ × cos(2πt)</span>
+                  </div>
+                  
+                  <div className="mt-3"><strong>Final Prediction:</strong></div>
+                  <div className="ml-4 bg-red-50 p-2 rounded">
+                    <span className="text-red-800">Predicted_Density(t) = D(t) + S(t) + ε(t)</span>
+                  </div>
+                  
+                  <div className="mt-4 text-xs text-gray-600">
+                    <strong>Where:</strong><br/>
+                    • t = time (years since 2015)<br/>
+                    • α = baseline density (5.2 particles/m³)<br/>
+                    • β₁ = linear growth rate (0.38 particles/m³/year)<br/>
+                    • β₂ = acceleration factor (0.012 particles/m³/year²)<br/>
+                    • γ₁, γ₂ = seasonal variation coefficients<br/>
+                    • ε(t) = random error term with 95% confidence intervals
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-100">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Prediction Analysis</h3>
               <ul className="list-disc pl-5 space-y-1 text-gray-700">
                 <li>The model predicts a 56% increase in microplastic density from 2025 to 2035 if current trends continue</li>
